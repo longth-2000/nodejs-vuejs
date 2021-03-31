@@ -56,6 +56,7 @@
 </style>
 
 <script>
+import {router} from "../routes/routes.js"
 export default {
   data() {
     return {
@@ -75,8 +76,7 @@ export default {
           if (email == items.email && password == items.password) oke = true;
         });
         if (oke == true) {
-          this.message = "Đăng nhập thành công";
-          this.isActive = true;
+           router.push("/home")
         } else {
           this.message = "Tài khoản không tồn tại";
           this.isActive = false;
