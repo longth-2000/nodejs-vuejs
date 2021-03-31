@@ -78,7 +78,7 @@ export default {
           this.message = "Đăng nhập thành công";
           this.isActive = true;
         } else {
-          this.message = "Đăng nhập thất bại";
+          this.message = "Tài khoản không tồn tại";
           this.isActive = false;
         }
       });

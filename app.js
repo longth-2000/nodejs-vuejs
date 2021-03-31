@@ -3,9 +3,6 @@ var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var mongoClient = require('mongodb').MongoClient;
-
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
 var routes = require('./src/nodejs/routes/routes');
 app.use(bodyParser.json());
 app.use(cors());
@@ -23,7 +20,6 @@ app.get('/', (req, res) => {
         });
     });
 }) 
-
 
 var portscanner = require('portscanner');
 portscanner.findAPortNotInUse([3000, 3010], '127.0.0.1').then(port => {

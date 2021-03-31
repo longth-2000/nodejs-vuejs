@@ -1,23 +1,14 @@
 import Vue from 'vue'
+import App from './App.vue'
+import { router } from './routes/routes'
 import VueRouter from 'vue-router'
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 Vue.use(VueAxios, axios);
 
-import App from './App.vue';
-import Register from './Register.vue';
-import Login from "./Login.vue";
-Vue.use(VueRouter)
-const routes = [
-  {
-    path: '/register',
-    component: Register
-  },
-  {
-    path: '/',
-    component: Login
-  }
+Vue.config.productionTip = false
 
-];
-const router = new VueRouter({ mode: 'history', routes: routes });
-new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+new Vue({
+    router,
+    render: h => h(App),
+}).$mount('#app')

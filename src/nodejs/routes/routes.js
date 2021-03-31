@@ -3,7 +3,7 @@ var router = express.Router()
 var mongoClient = require('mongodb').MongoClient;
 
 router.post("/register", function (req, res) {
-    var dataform = req.body;
+  var dataform = req.body;
   mongoClient.connect('mongodb://127.0.0.1:27017/nodedb', function (err, db) {
     if (err) throw err;
     //use product collection
@@ -12,13 +12,18 @@ router.post("/register", function (req, res) {
       email: dataform.email,
       password: dataform.password
     }
-    products.insertOne(data, function (err, res) {
-      //neu xay ra loi
-      if (err) throw err;
-      //neu khong co loi
-      console.log('Them thanh cong');
-    });
-
-  });  
+    if (data.email != null && data.password != null) {
+      products.insertOne(data, function (err, res) {
+        //neu xay ra loi
+        if (err) throw err;
+        //neu khong co loi
+        console.log('Them thanh cong');
+      });
+      
+    }
+    else {
+      console.log("Dữ liệu không hợp lệ")
+    }
+  });
 });
 module.exports = router

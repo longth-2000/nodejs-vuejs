@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "webpack-dev-server",
-    "server":"nodemon --inspect src/app.js"
+    "server":"nodemon --inspect app.js"
   },
   "author": "Skipperhoa",
   "license": "ISC",
