@@ -6,7 +6,7 @@ var mongoClient = require('mongodb').MongoClient;
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var routes = require('./src/routes/routes.js');
+var routes = require('./src/nodejs/routes/routes');
 app.use(bodyParser.json());
 app.use(cors());
 //ket noi router
@@ -23,9 +23,7 @@ app.get('/', (req, res) => {
         });
     });
 }) 
-app.get("/register", (req,res) => {
-    res.send("hello")
-}) 
+
 
 var portscanner = require('portscanner');
 portscanner.findAPortNotInUse([3000, 3010], '127.0.0.1').then(port => {

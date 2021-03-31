@@ -3,7 +3,7 @@ var router = express.Router()
 var mongoClient = require('mongodb').MongoClient;
 
 router.post("/register", function (req, res) {
-   var dataform = req.body;
+    var dataform = req.body;
   mongoClient.connect('mongodb://127.0.0.1:27017/nodedb', function (err, db) {
     if (err) throw err;
     //use product collection
@@ -19,6 +19,6 @@ router.post("/register", function (req, res) {
       console.log('Them thanh cong');
     });
 
-  }); 
+  });  
 });
 module.exports = router
