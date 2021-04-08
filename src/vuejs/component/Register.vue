@@ -13,6 +13,18 @@
             id="email"
           />
         </div>
+        <div class="errorRegister">{{ showError("Email") }}</div>
+        <div class="form-group">
+          <label>Username</label>
+          <input
+            type="text"
+            v-model="formdata.username"
+            class="form-control"
+            name="username"
+            id="user-name"
+          />
+        </div>
+        <div class="errorRegister">{{ showError("Username") }}</div>
         <div class="form-group">
           <label>Password</label>
           <input
@@ -22,15 +34,11 @@
             class="form-control"
             id="password"
           />
+          <div class="errorRegister">{{ showError("Password") }}</div>
         </div>
         <div class="form-group">
           <button class="btn btn-primary" @click="register">Đăng kí</button>
-          <router-link
-            class="router-link"
-            v-bind:class="{ 'register-success': isActive }"
-            to="/"
-            >Đăng nhập</router-link
-          >
+          <span>{{ message }}</span>
         </div>
       </div>
     </div>
@@ -44,6 +52,9 @@
   display: inline;
   margin-left: 50px;
 }
+.errorRegister {
+  color: red;
+}
 </style>
 <script>
 export default {
@@ -51,19 +62,44 @@ export default {
     return {
       formdata: {},
       message: "",
-      isActive: false,
+      errors: [
+        {
+          message: "",
+          key: ""
+        }
+      ],
+      isActive: false
     };
   },
   methods: {
     register() {
       this.axios
-        .post("http://localhost:3010/register", this.formdata)
-        .then((response) => {
-          this.isActive = true;
+        .post("https://sfbserver.herokuapp.com/register", this.formdata)
+        .then(response => {
+          if (
+            response.data.state !== "successful" &&
+            response.data.state !== "existed"
+          ) {
+            const errorRegister = response.data.details;
+            for (let index = 0; index < errorRegister.length; index++) {
+              this.errors.push({
+                message: errorRegister[index].message,
+                key: errorRegister[index].context.key
+              });
+            }
+          }
+          else this.message = response.data.message
         });
     },
-    
-  },
-  
+    showError(errorType) {
+      var object = {};
+      this.errors.forEach((error, index) => {
+        if (error.key == errorType) {
+          object = error;
+        }
+      });
+      return object.message;
+    }
+  }
 };
 </script>

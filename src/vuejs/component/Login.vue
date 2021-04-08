@@ -29,7 +29,9 @@
             Đăng nhập
           </button>
 
-          <router-link class="router" to="/register">Create an account</router-link>
+          <router-link class="router" to="/register"
+            >Create an account</router-link
+          >
         </div>
         <div class="notification">
           <h5
@@ -44,8 +46,8 @@
   </div>
 </template>
 <style>
-.router{
-  margin-left:330px
+.router {
+  margin-left: 330px;
 }
 .error-notification {
   color: red;
@@ -56,32 +58,22 @@
 </style>
 
 <script>
-import {router} from "../routes/routes.js"
+import { router } from "../routes/routes.js";
 export default {
   data() {
     return {
-      formdata: [],
+      formdata: {},
       message: "",
       isActive: false,
     };
   },
   methods: {
     Login() {
-      this.axios.get("http://localhost:3010").then((response) => {
-        var oke = false;
-        var array = response.data;
-        var email = document.getElementById("email").value;
-        var password = document.getElementById("password").value;
-        array.forEach((items) => {
-          if (email == items.email && password == items.password) oke = true;
+      this.axios
+        .post("https://sfbserver.herokuapp.com", this.formdata)
+        .then((response) => {
+          this.message = response.data.message
         });
-        if (oke == true) {
-           router.push("/home")
-        } else {
-          this.message = "Tài khoản không tồn tại";
-          this.isActive = false;
-        }
-      });
     },
   },
 };
